@@ -1,4 +1,3 @@
-import './src/image-figure.js';
 import './src/app-header.js';
 import './src/app-footer.js';
 
