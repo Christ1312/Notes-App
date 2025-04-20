@@ -1,3 +1,4 @@
+import './style.css';
 import './src/app-header.js';
 import './src/app-footer.js';
 
