@@ -15,6 +15,13 @@ class NoteForm extends HTMLElement {
         <button type="submit">Tambah Catatan</button>
       </form>
     `;
+    this.shadowRoot.querySelector("#noteForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const title = this.shadowRoot.getElementById("noteTitle").value;
+      const body = this.shadowRoot.getElementById("noteBody").value;
+      console.log(title, body);
+      NotesApi.addNotes(title, body);
+    });
   }
 }
 
@@ -42,7 +49,6 @@ if(data.length==0){
   });
   notesListElement.innerHTML = listOfNoteItem.join('');
 }
-
 const listOfNoteItem = sampleNotes.map((sampleNote) => {
   return createNoteItemElement(sampleNote);
 });
