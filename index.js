@@ -15,12 +15,13 @@ class NoteForm extends HTMLElement {
         <button type="submit">Tambah Catatan</button>
       </form>
     `;
-    this.shadowRoot.querySelector("#noteForm").addEventListener("submit", (event) => {
+    this.shadowRoot.querySelector("#noteForm").addEventListener("submit", async (event) => {
       event.preventDefault();
       const title = this.shadowRoot.getElementById("noteTitle").value;
       const body = this.shadowRoot.getElementById("noteBody").value;
       console.log(title, body);
-      NotesApi.addNotes(title, body);
+      await NotesApi.addNotes(title, body);
+      location.reload();
     });
   }
 }
