@@ -4,6 +4,7 @@ import './src/app-footer.js';
 
 import NotesApi from './remote/notesapp-api.js';
 
+const loading = document.querySelector(".loader");
 class NoteForm extends HTMLElement {
   constructor() {
     super();
@@ -19,7 +20,9 @@ class NoteForm extends HTMLElement {
       event.preventDefault();
       const title = this.shadowRoot.getElementById("noteTitle").value;
       const body = this.shadowRoot.getElementById("noteBody").value;
+      loading.style.display = "block";
       console.log(title, body);
+      loading.style.display = "none";
       await NotesApi.addNotes(title, body);
       location.reload();
     });
@@ -41,9 +44,12 @@ function createNoteItemElement({ id, title, body, createdAt }) {
   `;
 }
 
+const loading = document.querySelector(".loader");
+loading.style.display = "block";
 const data = await NotesApi.getNotes();
 if(data.length==0){
   notesListElement.innerHTML = "Data Kosong";
+  loading.style.display = "none";
 } else{
   const listOfNoteItem = data.map((sampleNote) => {
   return createNoteItemElement(sampleNote);
@@ -56,4 +62,5 @@ for (const tombol of tombolHapus) {
     location.reload();
   });
 }
+loading.style.display = "none";
 }
