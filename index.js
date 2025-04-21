@@ -30,18 +30,14 @@ customElements.define('note-form', NoteForm);
 const notesListElement = document.querySelector('#notesList');
 
 function createNoteItemElement({ id, title, body, createdAt }) {  
-  const template = `
+  return `
     <div data-noteid="${id}">
       <h3>${title}</h3>
       <p>${body}</p>
       <p>${createdAt}</p>
       <button class="hapus-button">Hapus</button>
-    </div>`;
-  template.querySelector(".hapus-button").addEventListener("click", () => {
-    console.log(id);
-  });
-   
-  return template;
+    </div>
+  `;
 }
 
 const data = await NotesApi.getNotes();
@@ -52,4 +48,7 @@ if(data.length==0){
   return createNoteItemElement(sampleNote);
   });
   notesListElement.innerHTML = listOfNoteItem.join('');
+  listOfNoteItem.querySelectorAll(".hapus-button").addEventListener("click", () => {
+    console.log("TES");
+  });
 }
