@@ -2,7 +2,7 @@ import './style.css';
 import './src/app-header.js';
 import './src/app-footer.js';
 
-import { sampleNotes } from "./sample-notes.js";
+import NotesApi from './remote/notesapp-api.js';
 
 class NoteForm extends HTMLElement {
   constructor() {
@@ -22,13 +22,25 @@ customElements.define('note-form', NoteForm);
 
 const notesListElement = document.querySelector('#notesList');
 
-function createNoteItemElement({ id, title, body }) {  
+function createNoteItemElement({ id, title, body, createdAt }) {  
   return `
     <div data-noteid="${id}">
       <h3>${title}</h3>
       <p>${body}</p>
+      <p>${createdAt}</p>
+      <button class="hapus-button">Hapus</button>
     </div>
   `;
+}
+
+const data = await NotesApi.getNotes();
+if(data.length==0){
+  notesListElement.innerHTML = "Data Kosong";
+} else{
+  const listOfNoteItem = data.map((sampleNote) => {
+  return createNoteItemElement(sampleNote);
+  });
+  notesListElement.innerHTML = listOfNoteItem.join('');
 }
 
 const listOfNoteItem = sampleNotes.map((sampleNote) => {
