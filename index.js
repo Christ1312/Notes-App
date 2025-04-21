@@ -21,9 +21,9 @@ class NoteForm extends HTMLElement {
       const title = this.shadowRoot.getElementById("noteTitle").value;
       const body = this.shadowRoot.getElementById("noteBody").value;
       loading.style.display = "block";
+      await NotesApi.addNotes(title, body);
       console.log(title, body);
       loading.style.display = "none";
-      await NotesApi.addNotes(title, body);
       location.reload();
     });
   }
@@ -44,7 +44,6 @@ function createNoteItemElement({ id, title, body, createdAt }) {
   `;
 }
 
-const loading = document.querySelector(".loader");
 loading.style.display = "block";
 const data = await NotesApi.getNotes();
 if(data.length==0){
