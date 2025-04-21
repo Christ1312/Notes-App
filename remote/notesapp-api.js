@@ -50,3 +50,5 @@ class NotesApi {
             })
     }
 }
+
+export default NotesApi;
