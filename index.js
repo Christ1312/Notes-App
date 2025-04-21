@@ -50,8 +50,9 @@ if(data.length==0){
   notesListElement.innerHTML = listOfNoteItem.join('');
   const tombolHapus = notesListElement.querySelectorAll(".hapus-button");
 for (const tombol of tombolHapus) {
-  tombol.addEventListener("click", () => {
-    NotesApi.deleteNotes(tombol.parentElement.getAttribute("data-noteid"));
+  tombol.addEventListener("click", async () => {
+    await NotesApi.deleteNotes(tombol.parentElement.getAttribute("data-noteid"));
+    location.reload();
   });
 }
 }
